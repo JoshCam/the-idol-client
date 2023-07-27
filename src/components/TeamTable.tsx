@@ -8,55 +8,14 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-// import { ITeamsAndMembers } from "../interfaces/teamsAndMembers.interface";
 import { ITeam } from "../interfaces/team.interface";
 import { IMember } from "../interfaces/member.interface";
 import React from "react";
 import TeamWithMemberRow from "./TeamWithMemberRow";
-import { deleteTeam, editTeam, viewTeam } from "../methods/teams";
 import TeamWithoutMembersRow from "./TeamWithoutMembersRow";
+import { ITeamsAndMembers } from "../interfaces/teamsAndMembers.interface";
 
-const teamsAndMembers = {
-  teams: [
-    {
-      teamName: "Team A",
-      teamId: 1,
-    },
-    {
-      teamName: "Team B",
-      teamId: 2,
-    },
-    {
-      teamName: "Team C",
-      teamId: 3,
-    },
-  ],
-  members: [
-    {
-      memberName: "Member 1",
-      memberId: 1,
-      teamId: 1,
-    },
-    {
-      memberName: "Member 2",
-      memberId: 2,
-      teamId: 1,
-    },
-    {
-      memberName: "Member 3",
-      memberId: 3,
-      teamId: 2,
-    },
-  ],
-};
-
-// LEAVING FOR NOW AS ANY BUT MUST FIX LATER!
-const TeamTable = ({ props }: any) => {
-  const { teams, members } = teamsAndMembers;
-  console.log(teams, members);
-
-  //   const rows = teamsAndMembers;
-
+const TeamTable = ({ teams, members }: ITeamsAndMembers) => {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">

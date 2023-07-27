@@ -5,7 +5,7 @@ import TeamTable from "../components/TeamTable";
 import { Container, Button, Typography, Box } from "@mui/material";
 import { ITeamsAndMembers } from "../interfaces/teamsAndMembers.interface";
 
-const teamsAndMembers = {
+const teamsAndMembers: ITeamsAndMembers = {
   teams: [
     {
       teamName: "Team A",
@@ -57,7 +57,10 @@ const Dashboard = () => {
         </Typography>
         <Button>Add Team</Button>
         <Button>Add Member</Button>
-        <TeamTable Item />
+        <TeamTable
+          teams={teamsAndMembers.teams}
+          members={teamsAndMembers.members}
+        />
       </Container>
     </Box>
   );
