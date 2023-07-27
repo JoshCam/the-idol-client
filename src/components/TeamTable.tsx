@@ -1,6 +1,5 @@
 import {
-  Container,
-  Grid,
+  Button,
   Paper,
   Table,
   TableBody,
@@ -9,20 +8,53 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
+// import { ITeamsAndMembers } from "../interfaces/teamsAndMembers.interface";
+import { ITeam } from "../interfaces/team.interface";
+import { IMember } from "../interfaces/member.interface";
+import React from "react";
+import TeamWithMemberRow from "./TeamWithMemberRow";
+import { deleteTeam, editTeam, viewTeam } from "../methods/teams";
 
-interface IMemberResponse {
-  name: string;
-  team: ITeamResponse;
-}
+const teamsAndMembers = {
+  teams: [
+    {
+      teamName: "Team A",
+      teamId: 1,
+    },
+    {
+      teamName: "Team B",
+      teamId: 2,
+    },
+    {
+      teamName: "Team C",
+      teamId: 3,
+    },
+  ],
+  members: [
+    {
+      memberName: "Member 1",
+      memberId: 1,
+      teamId: 1,
+    },
+    {
+      memberName: "Member 2",
+      memberId: 2,
+      teamId: 1,
+    },
+    {
+      memberName: "Member 3",
+      memberId: 3,
+      teamId: 2,
+    },
+  ],
+};
 
-interface ITeamResponse {
-  name: string;
-}
+// LEAVING FOR NOW AS ANY BUT MUST FIX LATER!
+const TeamTable = ({ props }: any) => {
+  const { teams, members } = teamsAndMembers;
+  console.log(teams, members);
 
-const TeamTable = ({ members }: any) => {
-  console.log(members);
-
-  const rows: IMemberResponse[] = members;
+  //   const rows = teamsAndMembers;
 
   return (
     <TableContainer component={Paper}>
@@ -30,25 +62,45 @@ const TeamTable = ({ members }: any) => {
         <TableHead>
           <TableRow>
             <TableCell>Team</TableCell>
-            <TableCell align="right">Team Action</TableCell>
-            <TableCell align="right">Member</TableCell>
-            <TableCell align="right">Member Action</TableCell>
+            <TableCell align="center">Team Action</TableCell>
+            <TableCell align="center">Member</TableCell>
+            <TableCell align="center">Member Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row: IMemberResponse) => (
-            <TableRow
-              key={row.team.name}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.team.name}
-              </TableCell>
-              <TableCell align="right">team actions</TableCell>
-              <TableCell align="right">{row.name}</TableCell>
-              <TableCell align="right">member actions</TableCell>
-            </TableRow>
-          ))}
+          {teams.map((team: ITeam) => {
+            const membersForTeam = members.filter(
+              (member: IMember) => member.teamId === team.teamId
+            );
+            return (
+              <React.Fragment key={team.teamId}>
+                {membersForTeam.length === 0 ? (
+                  // Render the team row with no members
+                  <TableRow>
+                    <TableCell align="center">{team.teamName}</TableCell>
+                    <TableCell align="center">
+                      <Button onClick={() => viewTeam(team.teamId)}>
+                        View
+                      </Button>
+                      <Button onClick={() => editTeam(team.teamId)}>
+                        Edit
+                      </Button>
+                      <Button onClick={() => deleteTeam(team.teamId)}>
+                        Delete
+                      </Button>
+                    </TableCell>
+                    <TableCell align="center">No Members</TableCell>
+                    <TableCell align="center">No Actions Available</TableCell>
+                  </TableRow>
+                ) : (
+                  // Render team rows with members
+                  membersForTeam.map((member: IMember) => (
+                    <TeamWithMemberRow member={member} team={team} />
+                  ))
+                )}
+              </React.Fragment>
+            );
+          })}
         </TableBody>
       </Table>
     </TableContainer>

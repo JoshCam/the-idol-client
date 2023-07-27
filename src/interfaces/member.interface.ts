@@ -1,6 +1,5 @@
-import { ITeam } from "./team.interface";
-
 export interface IMember {
-  name: string;
-  team: ITeam;
+  memberName: string;
+  memberId: number;
+  teamId: number;
 }
