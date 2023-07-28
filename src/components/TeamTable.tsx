@@ -16,9 +16,11 @@ import { ITeamsAndMembers } from "../interfaces/teamsAndMembers.interface";
 import { deleteTeam, editTeam } from "../methods/teams";
 import { deleteMember, editMember } from "../methods/members";
 import ViewTeamModal from "./modals/ViewTeamModal";
+import EditTeamModal from "./modals/EditTeamModal";
 
 const TeamTable = ({ teams, members }: ITeamsAndMembers) => {
   const [showViewTeam, setShowViewTeam] = useState(false);
+  const [showEditTeam, setShowEditTeam] = useState(false);
   const [viewedTeam, setViewedTeam] = useState({});
   const [viewedMembers, setViewedMembers] = useState([{}]);
 
@@ -28,6 +30,11 @@ const TeamTable = ({ teams, members }: ITeamsAndMembers) => {
     setShowViewTeam(true);
   };
 
+  const editTeam = (team: ITeam) => {
+    setViewedTeam(team);
+    setShowEditTeam(true);
+  };
+
   return (
     <Box>
       <ViewTeamModal
@@ -35,6 +42,11 @@ const TeamTable = ({ teams, members }: ITeamsAndMembers) => {
         close={() => setShowViewTeam(false)}
         team={viewedTeam}
         members={viewedMembers}
+      />
+      <EditTeamModal
+        show={showEditTeam}
+        close={() => setShowEditTeam(false)}
+        team={viewedTeam}
       />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -61,9 +73,7 @@ const TeamTable = ({ teams, members }: ITeamsAndMembers) => {
                         <Button onClick={() => viewTeam(team, membersForTeam)}>
                           View
                         </Button>
-                        <Button onClick={() => editTeam(team.teamId)}>
-                          Edit
-                        </Button>
+                        <Button onClick={() => editTeam(team)}>Edit</Button>
                         <Button onClick={() => deleteTeam(team.teamId)}>
                           Delete
                         </Button>
@@ -82,9 +92,7 @@ const TeamTable = ({ teams, members }: ITeamsAndMembers) => {
                           >
                             View
                           </Button>
-                          <Button onClick={() => editTeam(team.teamId)}>
-                            Edit
-                          </Button>
+                          <Button onClick={() => editTeam(team)}>Edit</Button>
                           <Button onClick={() => deleteTeam(team.teamId)}>
                             Delete
                           </Button>
