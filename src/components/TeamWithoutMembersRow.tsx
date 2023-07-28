@@ -18,3 +18,9 @@ const TeamWithoutMembersRow = ({ team }: ITeamProps) => {
 };
 
 export default TeamWithoutMembersRow;
+
+/**
+ * on click of view team
+ * get which team has been clicked
+ * request
+ */
