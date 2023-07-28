@@ -2,7 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../config";
 import TeamTable from "../components/TeamTable";
-import { Container, Button, Typography, Box } from "@mui/material";
+import { Container, Typography, Box } from "@mui/material";
+import AddTeamModal from "../components/modals/AddTeamModal";
+import AddMemberModal from "../components/modals/AddMemberModal";
 
 const Dashboard = () => {
   const [teamsAndMembers, setTeamsAndMembers] = useState({
@@ -12,7 +14,7 @@ const Dashboard = () => {
 
   const getTeams = async () => {
     try {
-      const response = await axios.get(`${API_BASE_URL}/teams`);
+      const response = await axios.get(`${API_BASE_URL}/teams/members`);
       setTeamsAndMembers(response.data);
     } catch (error) {
       // Make a custom error for this
@@ -30,8 +32,8 @@ const Dashboard = () => {
         <Typography variant="h2" align="left" gutterBottom>
           Team Listing Page
         </Typography>
-        <Button>Add Team</Button>
-        <Button>Add Member</Button>
+        <AddTeamModal />
+        <AddMemberModal />
         <TeamTable
           teams={teamsAndMembers.teams}
           members={teamsAndMembers.members}
