@@ -3,3 +3,7 @@ export interface IMember {
   memberId: number;
   teamId: number;
 }
+
+export interface IMemberProps {
+  member: IMember;
+}

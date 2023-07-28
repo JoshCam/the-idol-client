@@ -1,7 +1,8 @@
 import { Button, TableCell, TableRow } from "@mui/material";
 import { deleteTeam, editTeam, viewTeam } from "../methods/teams";
+import { ITeamProps } from "../interfaces/team.interface";
 
-const TeamWithoutMembersRow = ({ team }: any) => {
+const TeamWithoutMembersRow = ({ team }: ITeamProps) => {
   return (
     <TableRow>
       <TableCell align="center">{team.teamName}</TableCell>
