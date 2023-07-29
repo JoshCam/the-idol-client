@@ -5,6 +5,7 @@ import TeamTable from "../components/TeamTable";
 import { Container, Typography, Box } from "@mui/material";
 import AddTeamModal from "../components/modals/team/AddTeamModal";
 import AddMemberModal from "../components/modals/member/AddMemberModal";
+import EnhancedTable from "../components/test";
 
 const Dashboard = () => {
   const [teamsAndMembers, setTeamsAndMembers] = useState({
@@ -38,6 +39,7 @@ const Dashboard = () => {
           teams={teamsAndMembers.teams}
           members={teamsAndMembers.members}
         />
+        <EnhancedTable />
       </Container>
     </Box>
   );
