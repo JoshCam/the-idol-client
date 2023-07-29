@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { API_BASE_URL } from "../config";
 import TeamTable from "../components/TeamTable";
 import { Container, Typography, Box } from "@mui/material";
-import AddTeamModal from "../components/modals/AddTeamModal";
-import AddMemberModal from "../components/modals/AddMemberModal";
+import AddTeamModal from "../components/modals/team/AddTeamModal";
+import AddMemberModal from "../components/modals/member/AddMemberModal";
 
 const Dashboard = () => {
   const [teamsAndMembers, setTeamsAndMembers] = useState({
