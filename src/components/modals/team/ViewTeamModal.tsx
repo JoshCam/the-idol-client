@@ -1,5 +1,5 @@
 import { Box, Button, Modal, Typography } from "@mui/material";
-import { IMember } from "../../interfaces/member.interface";
+import { IMember } from "../../../interfaces/member.interface";
 
 const style = {
   position: "absolute" as "absolute",

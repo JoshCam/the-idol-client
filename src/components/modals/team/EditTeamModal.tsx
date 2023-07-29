@@ -7,10 +7,10 @@ import {
   Modal,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
-import { API_BASE_URL } from "../../config";
 import axios from "axios";
 import Joi from "joi";
+import { useState } from "react";
+import { API_BASE_URL } from "../../../config";
 
 const style = {
   position: "absolute" as "absolute",
@@ -24,20 +24,15 @@ const style = {
   p: 4,
 };
 
-const AddTeamModal = () => {
+const EditTeamModal = (props: any) => {
   const [teamName, setTeamName] = useState("");
   const [validationError, setValidationError] = useState("");
-
-  // Modal
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
 
   const schema = Joi.object({
     teamName: Joi.string().alphanum().required(),
   });
 
-  const createTeam = async (): Promise<void> => {
+  const updateTeam = async () => {
     const validation = schema.validate({ teamName: teamName });
 
     // If fails validation show error and return out
@@ -47,30 +42,29 @@ const AddTeamModal = () => {
     }
 
     // Save new team to DB
-    await axios.post(`${API_BASE_URL}/teams`, {
+    await axios.patch(`${API_BASE_URL}/teams`, {
       teamName,
+      teamId: props.team.teamId,
     });
 
     // reload window so that new team is instantly visible
     window.location.reload();
-    handleClose();
   };
-
   return (
     <>
-      <Button onClick={handleOpen}>Add Team</Button>
-      {/* MODAL */}
+      {/* <Button onClick={handleOpen}>Add Team</Button> */}
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={props.show}
+        onClose={props.close}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Team
+            Edit Team Details
           </Typography>
           <Typography>Team Name</Typography>
+          <Typography>{props.team.teamName}</Typography>
           <FormControl>
             {validationError ? (
               <Typography>{`${validationError}`}</Typography>
@@ -78,11 +72,11 @@ const AddTeamModal = () => {
             <Input
               id="team-name"
               onChange={(e) => setTeamName(e.target.value)}
-              placeholder="Team Name"
+              placeholder="Edit Name"
             />
             <Container>
-              <Button onClick={createTeam}>Save</Button>
-              <Button onClick={() => handleClose()}>Cancel</Button>
+              <Button onClick={updateTeam}>Save</Button>
+              <Button onClick={props.close}>Cancel</Button>
             </Container>
           </FormControl>
         </Box>
@@ -91,4 +85,4 @@ const AddTeamModal = () => {
   );
 };
 
-export default AddTeamModal;
+export default EditTeamModal;

@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { API_BASE_URL } from "../../config";
+import { API_BASE_URL } from "../../../config";
 import axios from "axios";
 import Joi from "joi";
 
@@ -74,7 +74,6 @@ const AddMemberModal = () => {
   return (
     <>
       <Button onClick={handleOpen}>Add Member</Button>
-      {/* MODAL */}
       <Modal
         open={open}
         onClose={handleClose}
