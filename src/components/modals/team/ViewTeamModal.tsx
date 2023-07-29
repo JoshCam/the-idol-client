@@ -39,7 +39,6 @@ const ViewTeamModal = (props: any) => {
 
   return (
     <>
-      {/* <Button onClick={handleOpen}>Add Team</Button> */}
       <Modal
         open={props.show}
         onClose={props.close}

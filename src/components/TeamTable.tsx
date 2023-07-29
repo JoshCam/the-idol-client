@@ -13,7 +13,7 @@ import { ITeam } from "../interfaces/team.interface";
 import { IMember } from "../interfaces/member.interface";
 import React, { useState } from "react";
 import { ITeamsAndMembers } from "../interfaces/teamsAndMembers.interface";
-import { deleteTeam, editTeam } from "../methods/teams";
+import { deleteTeam } from "../methods/teams";
 import { deleteMember, editMember } from "../methods/members";
 import ViewTeamModal from "./modals/team/ViewTeamModal";
 import EditTeamModal from "./modals/team/EditTeamModal";
